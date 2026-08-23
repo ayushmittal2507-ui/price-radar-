@@ -1,0 +1,88 @@
+/* Shared auth form styles (Login + Signup) */
+.formWrap {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Receipt header tab */
+.receiptHead {
+  background: var(--color-ink);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: var(--space-3) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.receiptLabel {
+  font-family: var(--font-price);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--color-surface-alt);
+}
+
+/* Main card */
+.formCard {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-top: none;
+  border-bottom: none;
+  padding: var(--space-8) var(--space-8);
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 23px,
+    rgba(0,0,0,0.022) 23px, rgba(0,0,0,0.022) 24px
+  );
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.formSub {
+  margin-bottom: var(--space-6);
+}
+
+.formDivider {
+  position: relative;
+  text-align: center;
+  margin: var(--space-5) 0;
+  color: var(--color-chrome);
+  font-size: 0.8rem;
+}
+.formDivider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+}
+.formDivider span {
+  position: relative;
+  background: var(--color-surface);
+  padding: 0 var(--space-3);
+}
+
+.switchLink { text-align: center; }
+
+/* Torn bottom */
+.receiptTear {
+  width: 100%;
+  height: 14px;
+  background: var(--color-surface);
+  border-left: 1.5px solid var(--color-border);
+  border-right: 1.5px solid var(--color-border);
+  clip-path: polygon(
+    0% 0%, 4% 100%, 8% 0%, 12% 100%, 16% 0%, 20% 100%,
+    24% 0%, 28% 100%, 32% 0%, 36% 100%, 40% 0%, 44% 100%,
+    48% 0%, 52% 100%, 56% 0%, 60% 100%, 64% 0%, 68% 100%,
+    72% 0%, 76% 100%, 80% 0%, 84% 100%, 88% 0%, 92% 100%,
+    96% 0%, 100% 100%, 100% 0%
+  );
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+}

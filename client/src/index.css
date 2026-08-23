@@ -1,0 +1,353 @@
+/* ═══════════════════════════════════════════════════
+   PriceRadar — Global Design Token System
+   "Vintage Ledger" skeuomorphic theme
+   ═══════════════════════════════════════════════════ */
+
+/* ── Design Tokens ───────────────────────────────── */
+:root {
+  /* Palette */
+  --color-bg:           #F5F0E8; /* Aged Parchment — the desk surface */
+  --color-surface:      #FDFBF5; /* Receipt White — cards, panels */
+  --color-surface-alt:  #EBE5D8; /* Pressed Linen — inputs, inactive */
+  --color-border:       #D6CFC0; /* Ledger Rule — dividers, outlines */
+
+  --color-green:        #1D5C2E; /* Savings Green — primary CTA */
+  --color-green-dark:   #154721; /* Forest Green — hover */
+  --color-green-shadow: #0F3318; /* Bevel shadow for green buttons */
+
+  --color-amber:        #C8440A; /* Markdown Amber — alerts, drops */
+  --color-amber-dark:   #9E330A; /* Deep Red — hover */
+  --color-amber-shadow: #6B2200; /* Bevel shadow for amber buttons */
+
+  --color-ink:          #1A1A18; /* Ink Black — body copy */
+  --color-ink-muted:    #6B6457; /* Faded Ink — metadata, labels */
+  --color-chrome:       #B0AEA8; /* Brushed Steel — decorative fills */
+
+  /* Typography */
+  --font-display:    'Playfair Display', Georgia, serif;
+  --font-heading:    'DM Serif Display', Georgia, serif;
+  --font-body:       'DM Sans', system-ui, sans-serif;
+  --font-price:      'Courier Prime', 'Courier New', monospace;
+
+  /* Spacing scale */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Shadows — layered depth system */
+  --shadow-card:  0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-raised: 0 4px 16px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+  --shadow-modal: 0 20px 60px rgba(0,0,0,0.22), 0 8px 20px rgba(0,0,0,0.10);
+  --shadow-input-inset: inset 0 2px 4px rgba(0,0,0,0.10), inset 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-nav:   0 1px 0 #D6CFC0, 0 2px 8px rgba(0,0,0,0.05);
+
+  /* Radii */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+
+  /* Transitions */
+  --transition-fast: 80ms ease;
+  --transition-base: 160ms ease;
+}
+
+/* ── Base Reset ───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+  /* Subtle parchment noise texture via inline SVG */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+a {
+  color: var(--color-green);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+img { display: block; max-width: 100%; }
+
+ul { list-style: none; }
+
+/* ── Typography scale ─────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.price-figure {
+  font-family: var(--font-price);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ── Tactile Button System ────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.65rem 1.4rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-transform: uppercase;
+  user-select: none;
+  position: relative;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-base);
+}
+
+/* Green — primary */
+.btn-primary {
+  background: linear-gradient(180deg, #246B35 0%, #1D5C2E 60%, #174D26 100%);
+  color: #FDFBF5;
+  box-shadow: 0 4px 0 var(--color-green-shadow), 0 6px 12px rgba(0,0,0,0.22);
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #1D5C2E 0%, #154721 60%, #124019 100%);
+}
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-green-shadow), 0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Amber — destructive / alert */
+.btn-amber {
+  background: linear-gradient(180deg, #D45010 0%, #C8440A 60%, #A83808 100%);
+  color: #FDFBF5;
+  box-shadow: 0 4px 0 var(--color-amber-shadow), 0 6px 12px rgba(0,0,0,0.22);
+}
+.btn-amber:hover {
+  background: linear-gradient(180deg, #C8440A 0%, #9E330A 60%, #8A2C07 100%);
+}
+.btn-amber:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-amber-shadow), 0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Ghost — outline style */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-green);
+  border: 1.5px solid var(--color-green);
+  box-shadow: none;
+  letter-spacing: 0.03em;
+}
+.btn-ghost:hover {
+  background: rgba(29, 92, 46, 0.06);
+}
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+
+/* Disabled */
+.btn:disabled,
+.btn[disabled] {
+  background: var(--color-chrome);
+  color: var(--color-surface);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Input System — sunken/inset feel ─────────────── */
+.input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: var(--color-surface-alt);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-input-inset);
+  outline: none;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+.input:focus {
+  border-color: var(--color-green);
+  box-shadow: var(--shadow-input-inset), 0 0 0 2px rgba(29,92,46,0.15);
+}
+.input::placeholder { color: var(--color-chrome); }
+
+.input-label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-5);
+}
+
+/* ── Card / Panel ─────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+/* Grain overlay on cards */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Price Tag Card (Motif 1) ─────────────────────── */
+.price-tag {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  position: relative;
+  transform: rotate(-0.4deg);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.price-tag:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+/* Punch hole */
+.price-tag::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+}
+/* Grain on price tags */
+.price-tag::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Receipt Panel (Motif 2) ──────────────────────── */
+.receipt {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  /* Thermal paper stripe watermark */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 23px,
+    rgba(0,0,0,0.025) 23px,
+    rgba(0,0,0,0.025) 24px
+  );
+}
+/* Torn bottom edge via clip-path */
+.receipt-tear {
+  width: 100%;
+  height: 16px;
+  background: var(--color-surface);
+  border-left: 1.5px solid var(--color-border);
+  border-right: 1.5px solid var(--color-border);
+  clip-path: polygon(
+    0% 0%, 4% 100%, 8% 0%, 12% 100%, 16% 0%, 20% 100%,
+    24% 0%, 28% 100%, 32% 0%, 36% 100%, 40% 0%, 44% 100%,
+    48% 0%, 52% 100%, 56% 0%, 60% 100%, 64% 0%, 68% 100%,
+    72% 0%, 76% 100%, 80% 0%, 84% 100%, 88% 0%, 92% 100%,
+    96% 0%, 100% 100%, 100% 0%
+  );
+}
+
+/* ── Utility classes ──────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.price-green { color: var(--color-green); }
+.price-amber { color: var(--color-amber); }
+.text-muted  { color: var(--color-ink-muted); }
+.text-sm     { font-size: 0.85rem; }
+.text-xs     { font-size: 0.75rem; }
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-4) 0;
+}
+
+/* Alert banner */
+.alert {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+}
+.alert-error   { background: #FFF0EC; color: var(--color-amber); border: 1px solid #F5C4B0; }
+.alert-success { background: #EEF6F0; color: var(--color-green); border: 1px solid #AACEB4; }
+
+/* Page wrapper */
+.page-wrapper {
+  min-height: calc(100vh - 64px);
+  padding: var(--space-10) 0;
+}
