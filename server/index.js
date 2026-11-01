@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import { startScheduler } from "./utils/scheduler.js";
+import dns from 'dns';
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 // ── Initialise Express ────────────────────────
 const app = express();
@@ -17,17 +19,17 @@ app.get("/api/health", (_req, res) => {
 });
 
 // ── Future route mounts will go here ──────────
-import authRoutes   from "./routes/auth.js";
-import siteRoutes   from "./routes/site.js";
-import trackRoutes  from "./routes/track.js";
-import testRoutes   from "./routes/test.js";
+import authRoutes from "./routes/auth.js";
+import siteRoutes from "./routes/site.js";
+import trackRoutes from "./routes/track.js";
+import testRoutes from "./routes/test.js";
 //
-app.use("/api/auth",   authRoutes);
-app.use("/api/sites",  siteRoutes);
-app.use("/api/site",   siteRoutes);
-app.use("/api/track",  trackRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/sites", siteRoutes);
+app.use("/api/site", siteRoutes);
+app.use("/api/track", trackRoutes);
 app.use("/api/tracks", trackRoutes);
-app.use("/api/test",   testRoutes);
+app.use("/api/test", testRoutes);
 
 // ── Start server ──────────────────────────────
 const PORT = process.env.PORT || 5000;
