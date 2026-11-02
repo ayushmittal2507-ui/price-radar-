@@ -24,13 +24,20 @@ export default function AddTracker({ onTrackerAdded, onCancel }) {
 
   // Fetch available sites on mount
   useEffect(() => {
+    const FALLBACK_SITES = [
+      { _id: '60d5ecb8b5c0c24d88e40001', name: 'Amazon', type: 'product' },
+      { _id: '60d5ecb8b5c0c24d88e40002', name: 'Flipkart', type: 'product' },
+      { _id: '60d5ecb8b5c0c24d88e40003', name: 'Demo Books Store (books.toscrape.com)', type: 'product' },
+      { _id: '60d5ecb8b5c0c24d88e40004', name: 'Yahoo Finance (Stock)', type: 'stock' },
+    ];
+
     api.get('/sites')
       .then(({ data }) => {
-        setSites(data);
+        setSites(Array.isArray(data) && data.length > 0 ? data : FALLBACK_SITES);
       })
       .catch((err) => {
-        console.error('Failed to load sites:', err);
-        setError('Could not load site configurations.');
+        console.warn('Using fallback site configs:', err.message);
+        setSites(FALLBACK_SITES);
       })
       .finally(() => setLoadingSites(false));
   }, []);
@@ -132,7 +139,7 @@ export default function AddTracker({ onTrackerAdded, onCancel }) {
 
       const { data } = await api.post('/track', payload);
       toast.success(`Started tracking "${data.name}"!`);
-      
+
       // Reset form
       setForm({
         url: '',

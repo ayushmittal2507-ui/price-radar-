@@ -1,0 +1,13 @@
+{
+  "name": "price-radar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PriceRadar — Price Tracking & Notification System",
+  "scripts": {
+    "start": "node server/index.js",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client"
+  }
+}
+

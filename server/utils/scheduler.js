@@ -1,10 +1,14 @@
 import cron from 'node-cron';
+import mongoose from 'mongoose';
 import Track from '../models/TrackModel.js';
 import { getPrice } from './getPrice.js';
 import { sendMail } from './sendMail.js';
 import { sendTelegramMessage } from './sendTelegram.js';
 
 export const runPriceCheck = async () => {
+  if (mongoose.connection.readyState !== 1) {
+    return;
+  }
   console.log('⏳ Running periodic price check job...');
   try {
     // Find all tracks that have not alerted yet

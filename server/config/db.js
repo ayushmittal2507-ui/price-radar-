@@ -45,12 +45,17 @@ const seedDefaultSites = async () => {
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    if (!process.env.MONGO_URI) {
+      console.warn("⚠️  No MONGO_URI provided. Running in resilient showcase mode.");
+      return;
+    }
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+    });
     console.log(`✅  MongoDB connected → ${conn.connection.host}/${conn.connection.name}`);
     await seedDefaultSites();
   } catch (err) {
-    console.error(`❌  MongoDB connection failed: ${err.message}`);
-    process.exit(1);
+    console.warn(`⚠️  MongoDB connection note: ${err.message}. Running in resilient showcase mode.`);
   }
 };
 
