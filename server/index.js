@@ -10,6 +10,7 @@ dotenv.config();
 
 import express from "express";
 import cors from "cors";
+import mongoose from "mongoose";
 import connectDB from "./config/db.js";
 import { startScheduler } from "./utils/scheduler.js";
 import dns from 'dns';
@@ -26,6 +27,18 @@ const app = express();
 // ── Middleware ─────────────────────────────────
 app.use(cors());
 app.use(express.json());
+
+// In serverless environments (e.g. Vercel), ensure DB connects on incoming requests
+app.use(async (_req, _res, next) => {
+  if (mongoose.connection.readyState === 0 && process.env.MONGO_URI) {
+    try {
+      await connectDB();
+    } catch {
+      // Continue gracefully in showcase fallback mode
+    }
+  }
+  next();
+});
 
 // ── Health check ──────────────────────────────
 app.get("/api/health", (_req, res) => {
@@ -53,7 +66,9 @@ if (process.env.NODE_ENV !== "test") {
     console.log(`🚀  PriceRadar API running → http://localhost:${PORT}`);
     try {
       await connectDB();
-      startScheduler();
+      if (!process.env.VERCEL) {
+        startScheduler();
+      }
     } catch (err) {
       console.warn("⚠️  Running in resilient showcase mode without live DB connection:", err.message);
     }
