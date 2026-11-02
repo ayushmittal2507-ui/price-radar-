@@ -15,14 +15,14 @@ export default function TrackCard({ track, onDelete, isDeleting }) {
       trend = {
         direction: 'down',
         symbol: '▼',
-        label: `-₹${Math.abs(diff).toFixed(2)}`,
+        label: `-$${Math.abs(diff).toFixed(2)}`,
         className: styles.trendDown,
       };
     } else if (diff > 0) {
       trend = {
         direction: 'up',
         symbol: '▲',
-        label: `+₹${diff.toFixed(2)}`,
+        label: `+$${diff.toFixed(2)}`,
         className: styles.trendUp,
       };
     } else {
@@ -85,7 +85,7 @@ export default function TrackCard({ track, onDelete, isDeleting }) {
           <span className={styles.priceLabel}>Current</span>
           <div className={styles.currentPriceRow}>
             <span className={`price-figure ${isTargetHit ? 'price-green' : styles.priceNormal} ${styles.currentPrice}`}>
-              {latestPrice !== null ? `₹${latestPrice.toFixed(2)}` : 'Scanning…'}
+              {latestPrice !== null ? `$${latestPrice.toFixed(2)}` : 'Scanning…'}
             </span>
             {trend && (
               <span className={`${styles.trendPill} ${trend.className}`} title={`Compared to previous check: ${trend.label}`}>
@@ -98,13 +98,13 @@ export default function TrackCard({ track, onDelete, isDeleting }) {
         <div className={styles.statsRow}>
           <div className={styles.statItem}>
             <span className={styles.statLabel}>Target</span>
-            <span className="price-figure">₹{track.demandPrice.toFixed(2)}</span>
+            <span className="price-figure">${track.demandPrice.toFixed(2)}</span>
           </div>
 
           <div className={styles.statItem}>
             <span className={styles.statLabel}>Lowest Ever</span>
             <span className={`price-figure ${isAllTimeLow ? 'price-green' : ''}`}>
-              {track.lowestPriceEver !== null ? `₹${track.lowestPriceEver.toFixed(2)}` : '—'}
+              {track.lowestPriceEver !== null ? `$${track.lowestPriceEver.toFixed(2)}` : '—'}
               {isAllTimeLow && ' ★'}
             </span>
           </div>

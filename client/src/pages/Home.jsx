@@ -63,11 +63,11 @@ export default function Home() {
             </div>
             <div className={styles.receiptRow}>
               <span className="text-muted text-sm">Was</span>
-              <span className={`price-figure ${styles.priceCrossed}`}>₹349.00</span>
+              <span className={`price-figure ${styles.priceCrossed}`}>$349.00</span>
             </div>
             <div className={styles.receiptRow}>
               <span className="text-muted text-sm">Now</span>
-              <span className={`price-figure price-green ${styles.priceBig}`}>₹249.99</span>
+              <span className={`price-figure price-green ${styles.priceBig}`}>$249.99</span>
             </div>
             <div className={styles.divider} />
             <div className={`text-xs text-muted ${styles.receiptFooter}`}>

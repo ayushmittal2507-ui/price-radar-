@@ -43,7 +43,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         <div className={styles.tooltipPriceRow}>
           <span className="text-xs">Recorded:</span>
           <span className="price-figure price-green" style={{ fontSize: '1.1rem' }}>
-            ₹{payload[0].value?.toFixed(2)}
+            ${payload[0].value?.toFixed(2)}
           </span>
         </div>
       </div>
@@ -73,19 +73,19 @@ export default function TrackDetail() {
       setTrack({
         _id: id || "60d5ecb8b5c0c24d88e40011",
         name: "Sony WH-1000XM5 Wireless Noise-Cancelling Headphones",
-        url: "https://www.amazon.in/dp/B09XS7JWHH",
+        url: "https://www.amazon.com/dp/B09XS7JWHH",
         site: { _id: "60d5ecb8b5c0c24d88e40001", name: "Amazon" },
         type: "product",
-        demandPrice: 28000,
-        lowestPriceEver: 26990,
+        demandPrice: 349.99,
+        lowestPriceEver: 299.99,
         informed: false,
         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
         history: [
-          { price: 31990, date: new Date(Date.now() - 86400000 * 5) },
-          { price: 29990, date: new Date(Date.now() - 86400000 * 4) },
-          { price: 28990, date: new Date(Date.now() - 86400000 * 3) },
-          { price: 27990, date: new Date(Date.now() - 86400000 * 2) },
-          { price: 26990, date: new Date(Date.now() - 86400000 * 1) },
+          { price: 399.99, date: new Date(Date.now() - 86400000 * 5) },
+          { price: 379.99, date: new Date(Date.now() - 86400000 * 4) },
+          { price: 349.99, date: new Date(Date.now() - 86400000 * 3) },
+          { price: 329.99, date: new Date(Date.now() - 86400000 * 2) },
+          { price: 299.99, date: new Date(Date.now() - 86400000 * 1) },
         ],
         createdAt: new Date(Date.now() - 86400000 * 5),
       });
@@ -241,21 +241,21 @@ export default function TrackDetail() {
             <div className={styles.statBox}>
               <span className={styles.statLabel}>Current Scraped Price</span>
               <span className={`price-figure ${isTargetHit ? 'price-green' : styles.priceNormal} ${styles.priceLarge}`}>
-                {latestPrice !== null ? `₹${latestPrice.toFixed(2)}` : 'Scanning…'}
+                {latestPrice !== null ? `$${latestPrice.toFixed(2)}` : 'Scanning…'}
               </span>
             </div>
 
             <div className={styles.statBox}>
               <span className={styles.statLabel}>Target Alert Goal</span>
               <span className={`price-figure ${styles.priceMed}`}>
-                ₹{track.demandPrice.toFixed(2)}
+                ${track.demandPrice.toFixed(2)}
               </span>
             </div>
 
             <div className={styles.statBox}>
               <span className={styles.statLabel}>All-Time Lowest Recorded</span>
               <span className={`price-figure price-green ${styles.priceMed}`}>
-                {track.lowestPriceEver !== null ? `₹${track.lowestPriceEver.toFixed(2)}` : '—'}
+                {track.lowestPriceEver !== null ? `$${track.lowestPriceEver.toFixed(2)}` : '—'}
                 {track.lowestPriceEver !== null && ' ★'}
               </span>
             </div>
@@ -273,7 +273,7 @@ export default function TrackDetail() {
             </div>
             {lowestPoint && (
               <div className={styles.lowestBadge}>
-                ★ Lowest: <strong>₹{lowestPoint.price.toFixed(2)}</strong> on {lowestPoint.date}
+                ★ Lowest: <strong>${lowestPoint.price.toFixed(2)}</strong> on {lowestPoint.date}
               </div>
             )}
           </div>
@@ -288,7 +288,7 @@ export default function TrackDetail() {
                     tick={{ fontFamily: 'DM Sans', fontSize: 12, fill: '#6B6457' }}
                   />
                   <YAxis
-                    tickFormatter={(v) => `₹${v}`}
+                    tickFormatter={(v) => `$${v}`}
                     tick={{ fontFamily: 'Courier Prime', fontSize: 12, fill: '#6B6457' }}
                     domain={['auto', 'auto']}
                     width={70}
@@ -302,7 +302,7 @@ export default function TrackDetail() {
                     strokeWidth={1.8}
                     strokeDasharray="6 3"
                     label={{
-                      value: `Target (₹${track.demandPrice})`,
+                      value: `Target ($${track.demandPrice})`,
                       position: 'insideTopRight',
                       fill: '#C8440A',
                       fontSize: 12,
@@ -337,7 +337,7 @@ export default function TrackDetail() {
           ) : (
             <div className={styles.notEnoughData}>
               <p className="text-muted text-sm">
-                Only 1 price snapshot recorded so far (₹{latestPrice?.toFixed(2)}). As the cron scheduler checks this item every 10 minutes, the full interactive graph will render automatically.
+                Only 1 price snapshot recorded so far (${latestPrice?.toFixed(2)}). As the cron scheduler checks this item every 10 minutes, the full interactive graph will render automatically.
               </p>
             </div>
           )}
@@ -374,7 +374,7 @@ export default function TrackDetail() {
 
                       <div className={styles.receiptPriceCol}>
                         <span className={`price-figure ${hasDropped ? 'price-green' : hasIncreased ? 'price-amber' : ''} ${styles.receiptPrice}`}>
-                          ₹{item.price.toFixed(2)}
+                          ${item.price.toFixed(2)}
                         </span>
                         {hasDropped && <span className={styles.dropIndicator}>▼ Drop</span>}
                         {hasIncreased && <span className={styles.riseIndicator}>▲ Rise</span>}
@@ -386,7 +386,7 @@ export default function TrackDetail() {
 
               <div className="divider" style={{ margin: 'var(--space-3) 0' }} />
               <div className={`text-xs text-muted ${styles.receiptFooter}`}>
-                Total Records: {chartData.length} · Lowest: ₹{track.lowestPriceEver?.toFixed(2) || '—'}
+                Total Records: {chartData.length} · Lowest: ${track.lowestPriceEver?.toFixed(2) || '—'}
               </div>
             </div>
             <div className="receipt-tear" />

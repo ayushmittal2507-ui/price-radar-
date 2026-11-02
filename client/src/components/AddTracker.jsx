@@ -255,7 +255,7 @@ export default function AddTracker({ onTrackerAdded, onCancel }) {
                   <div className={styles.previewPriceRow}>
                     <span className="text-muted text-xs">Current Live Price:</span>
                     <span className="price-figure price-green" style={{ fontSize: '1.2rem' }}>
-                      ₹{testResult.price?.toFixed(2)}
+                      ${testResult.price?.toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -298,7 +298,7 @@ export default function AddTracker({ onTrackerAdded, onCancel }) {
 
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label" htmlFor="tracker-demandPrice">
-                Target Demand Price (₹ INR) <span className={styles.req}>*</span>
+                Target Demand Price ($ USD) <span className={styles.req}>*</span>
               </label>
               <input
                 id="tracker-demandPrice"
